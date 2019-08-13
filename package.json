@@ -1,12 +1,7 @@
 {
-    "name": "node-mongo-registration-login-api",
-    "version": "1.0.0",
-    "description": "NodeJS + MongoDB API for User Management, Authentication and Registration",
-    "license": "MIT",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/cornflourblue/node-mongo-registration-login-api.git"
-    },
+    "name": "user-authentication",
+    "version": "0.1",
+    "description": "Minimalist user authentication server using Json web token.",
     "scripts": {
         "start": "node ./server.js",
         "start-dev": "nodemon ./server.js"

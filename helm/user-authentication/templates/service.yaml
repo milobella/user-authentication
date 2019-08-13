@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "user-authentication.fullname" . }}
+  labels:
+{{ include "user-authentication.labels" . | indent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.containerPort }}
+      protocol: TCP
+  selector:
+    app.kubernetes.io/name: {{ include "user-authentication.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}

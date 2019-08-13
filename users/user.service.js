@@ -1,4 +1,4 @@
-﻿const config = require('config.json');
+﻿const config = require();
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const db = require('_helpers/db');
@@ -13,11 +13,14 @@ module.exports = {
     delete: _delete
 };
 
+const iss = (process.env.APP_ISS || config.iss);
+const secret = (process.env.APP_SECRET || config.secret);
+
 async function authenticate({ username, password }) {
     const user = await User.findOne({ username });
     if (user && bcrypt.compareSync(password, user.hash)) {
         const { hash, ...userWithoutHash } = user.toObject();
-        const token = jwt.sign({ sub: user.id }, config.secret);
+        const token = jwt.sign({ iss: iss, sub: user.id }, secret);
         return {
             ...userWithoutHash,
             token
@@ -38,6 +41,8 @@ async function create(userParam) {
     if (await User.findOne({ username: userParam.username })) {
         throw 'Username "' + userParam.username + '" is already taken';
     }
+
+    console.log(userParam.username);
 
     const user = new User(userParam);
 
