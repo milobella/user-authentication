@@ -5,7 +5,6 @@ metadata:
   labels:
 {{ include "user-authentication.labels" . | indent 4 }}
 spec:
-  type: {{ .Values.service.type }}
   ports:
     - port: {{ .Values.containerPort }}
       protocol: TCP
